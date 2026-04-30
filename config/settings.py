@@ -134,3 +134,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Use cookie-based sessions to avoid writing to the read-only database
 SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'
+
+# WhiteNoise storage for compressed and cached static files
+STORAGES = {
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}

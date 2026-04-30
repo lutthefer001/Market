@@ -1,0 +1,41 @@
+{% extends 'store/base.html' %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col">
+        <h2 class="fw-bold">Barcha mahsulotlar</h2>
+    </div>
+    <div class="col text-end">
+        <a href="{% url 'product_create' %}" class="btn btn-primary">Yangi mahsulot qo'shish</a>
+    </div>
+</div>
+
+<div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4">
+    {% for product in products %}
+    <div class="col">
+        <div class="card h-100">
+            {% if product.image %}
+                <img src="{{ product.image.url }}" class="card-img-top product-img" alt="{{ product.name }}">
+            {% else %}
+                <div class="card-img-top product-img bg-secondary d-flex align-items-center justify-content-center text-white">
+                    Rasm yo'q
+                </div>
+            {% endif %}
+            <div class="card-body d-flex flex-column">
+                <h5 class="card-title">{{ product.name }}</h5>
+                <p class="card-text text-muted small flex-grow-1">{{ product.description|truncatewords:15 }}</p>
+                <h6 class="fw-bold text-primary mb-3">{{ product.price }} so'm</h6>
+                <div class="mt-auto d-flex gap-2">
+                    <a href="{% url 'product_update' product.pk %}" class="btn btn-sm btn-outline-primary flex-grow-1">Tahrirlash</a>
+                    <a href="{% url 'product_delete' product.pk %}" class="btn btn-sm btn-outline-danger flex-grow-1">O'chirish</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="col-12 text-center py-5">
+        <h4 class="text-muted">Hozircha mahsulotlar yo'q</h4>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
